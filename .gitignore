@@ -1,0 +1,24 @@
+# Frontend (Next.js)
+fe/node_modules/
+fe/.next/
+fe/out/
+fe/build
+fe/.env*.local
+fe/.vercel
+
+# Backend (Python/FastAPI)
+be/__pycache__/
+be/*.py[cod]
+be/*$py.class
+be/venv/
+be/env/
+be/.env
+be/.pytest_cache/
+be/.coverage
+be/htmlcov/
+
+# OS/Editor
+.DS_Store
+.vscode/
+.idea/
+*.log
