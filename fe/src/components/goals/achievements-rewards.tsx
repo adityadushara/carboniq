@@ -1,5 +1,5 @@
 "use client"
-import { motion } from "framer-motion"
+import { motion, Variants } from "framer-motion"
 import { Award, Zap, Plane, Shield, Trophy } from "lucide-react"
 
 const achievements = [
@@ -10,7 +10,7 @@ const achievements = [
   { id: 5, title: "Energy Saver", description: "Reduce energy usage by 15%", progress: 40, icon: Zap, unlocked: false, color: "text-slate-400", border: "border-border" },
 ]
 
-const container = {
+const container: Variants = {
   hidden: { opacity: 0 },
   show: {
     opacity: 1,
@@ -18,7 +18,7 @@ const container = {
   }
 }
 
-const item = {
+const item: Variants = {
   hidden: { opacity: 0, scale: 0.9 },
   show: { opacity: 1, scale: 1, transition: { type: "spring", stiffness: 300, damping: 24 } }
 }

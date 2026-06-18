@@ -1,5 +1,5 @@
 "use client"
-import { motion } from "framer-motion"
+import { motion, Variants } from "framer-motion"
 import { ReportsHeader } from "@/components/reports/reports-header"
 import { ReportsHero } from "@/components/reports/reports-hero"
 import { ReportsDashboard } from "@/components/reports/reports-dashboard"
@@ -8,7 +8,7 @@ import { ReportComparison } from "@/components/reports/report-comparison"
 import { ReportsList } from "@/components/reports/reports-list"
 
 // Framer Motion container for staggering children
-const container = {
+const container: Variants = {
   hidden: { opacity: 0 },
   show: {
     opacity: 1,
@@ -18,7 +18,7 @@ const container = {
   }
 }
 
-const item = {
+const item: Variants = {
   hidden: { opacity: 0, y: 20 },
   show: { opacity: 1, y: 0, transition: { type: "spring", stiffness: 300, damping: 24 } }
 }
