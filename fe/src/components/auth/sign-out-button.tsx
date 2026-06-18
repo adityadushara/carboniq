@@ -5,7 +5,15 @@ import { useRouter } from 'next/navigation'
 import { Button } from "@/components/ui/button"
 import { toast } from "sonner"
 
-export function SignOutButton({ variant = "ghost", className = "", showText = true }: { variant?: any, className?: string, showText?: boolean }) {
+import { type VariantProps } from "class-variance-authority"
+import { buttonVariants } from "@/components/ui/button"
+
+interface SignOutButtonProps extends VariantProps<typeof buttonVariants> {
+  className?: string;
+  showText?: boolean;
+}
+
+export function SignOutButton({ variant = "ghost", size = "default", className = "", showText = true }: SignOutButtonProps) {
   const router = useRouter()
 
   const handleSignOut = async () => {
@@ -26,7 +34,7 @@ export function SignOutButton({ variant = "ghost", className = "", showText = tr
   }
 
   return (
-    <Button variant={variant} className={className} onClick={handleSignOut}>
+    <Button variant={variant} size={size} className={className} onClick={handleSignOut}>
       <LogOut className={`h-4 w-4 ${showText ? 'mr-2' : ''}`} />
       {showText && "Sign Out"}
     </Button>

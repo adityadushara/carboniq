@@ -38,7 +38,7 @@ export function EmissionBreakdown() {
               <Tooltip 
                 contentStyle={{ backgroundColor: 'hsl(var(--card))', borderRadius: '8px', border: '1px solid hsl(var(--border))' }}
                 itemStyle={{ color: 'hsl(var(--foreground))' }}
-                formatter={(value: number) => [`${value} kg`, 'Emissions']}
+                formatter={(value) => [`${value} kg`, 'Emissions']}
               />
               <Legend 
                 verticalAlign="bottom" 
