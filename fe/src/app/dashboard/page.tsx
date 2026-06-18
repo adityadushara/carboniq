@@ -10,6 +10,8 @@ const PremiumEmissionBreakdown = dynamic(() => import("@/components/dashboard/pr
 import { PremiumAIInsights } from "@/components/dashboard/premium-ai-insights"
 import { PremiumActiveGoals } from "@/components/dashboard/premium-active-goals"
 import { PremiumRecentActivity } from "@/components/dashboard/premium-recent-activity"
+import { ForecastChart } from "@/components/dashboard/forecast-chart"
+import { WeeklyActionPlan } from "@/components/coach/weekly-action-plan"
 import { Loader2, AlertCircle } from "lucide-react"
 import type { Activity, Goal, User } from "@/types"
 
@@ -105,6 +107,8 @@ export default function DashboardPage() {
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         <PremiumAIInsights activities={activities} />
+        <ForecastChart />
+        <WeeklyActionPlan />
         <PremiumActiveGoals goals={goals} />
         <div className="md:col-span-2 lg:col-span-1 xl:col-span-2">
           <PremiumRecentActivity activities={activities} />

@@ -272,9 +272,9 @@ export default function LandingPage() {
           <div className="border-t border-border/50 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-muted-foreground">
             <p>© {new Date().getFullYear()} CarbonIQ Inc. All rights reserved.</p>
             <div className="flex gap-4">
-              <span className="cursor-pointer hover:text-foreground">Twitter</span>
-              <span className="cursor-pointer hover:text-foreground">LinkedIn</span>
-              <span className="cursor-pointer hover:text-foreground">GitHub</span>
+              <Link href="#" className="hover:text-foreground transition-colors" aria-label="Twitter">Twitter</Link>
+              <Link href="#" className="hover:text-foreground transition-colors" aria-label="LinkedIn">LinkedIn</Link>
+              <Link href="#" className="hover:text-foreground transition-colors" aria-label="GitHub">GitHub</Link>
             </div>
           </div>
         </div>
