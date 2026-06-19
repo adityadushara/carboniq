@@ -9,8 +9,9 @@ import models
 
 security = HTTPBearer()
 
-url: str = os.environ.get("SUPABASE_URL", "")
-key: str = os.environ.get("SUPABASE_KEY", "")
+from config import settings
+url: str = settings.supabase_url
+key: str = settings.supabase_key
 supabase: Client = create_client(url, key)
 
 async def get_current_user(credentials: HTTPAuthorizationCredentials = Depends(security), db: Session = Depends(get_db)):
