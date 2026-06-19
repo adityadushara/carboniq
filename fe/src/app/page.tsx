@@ -20,7 +20,7 @@ export default function LandingPage() {
         </nav>
         <div className="flex items-center gap-4">
           <Link href="/login" className="text-sm font-medium hover:text-primary transition-colors">Sign In</Link>
-          <Button render={<Link href="/signup" />} className="rounded-md shadow-sm">
+          <Button render={<Link href="/signup" />} nativeButton={false} className="rounded-md shadow-sm">
             Get Started
           </Button>
         </div>
@@ -43,10 +43,10 @@ export default function LandingPage() {
               CarbonIQ helps you understand, track, and reduce your carbon footprint through AI-powered insights and personalized recommendations.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4 animate-in fade-in slide-in-from-bottom-10 duration-700 delay-200">
-              <Button size="lg" render={<Link href="/signup" />} className="rounded-md px-8 h-14 text-base shadow-lg hover:-translate-y-1 transition-all">
+              <Button size="lg" render={<Link href="/signup" />} nativeButton={false} className="rounded-md px-8 h-14 text-base shadow-lg hover:-translate-y-1 transition-all">
                 Get Started
               </Button>
-              <Button size="lg" variant="outline" render={<Link href="/login" />} className="rounded-md px-8 h-14 text-base bg-background/50 hover:bg-secondary/50 transition-all">
+              <Button size="lg" variant="outline" render={<Link href="/login" />} nativeButton={false} className="rounded-md px-8 h-14 text-base bg-background/50 hover:bg-secondary/50 transition-all">
                 Sign In
               </Button>
             </div>
@@ -228,10 +228,10 @@ export default function LandingPage() {
               Join thousands of users who are taking control of their environmental impact.
             </p>
             <div className="flex flex-col sm:flex-row justify-center gap-4">
-              <Button size="lg" variant="secondary" render={<Link href="/signup" />} className="rounded-md px-10 h-14 text-lg font-semibold hover:scale-105 transition-all">
+              <Button size="lg" variant="secondary" render={<Link href="/signup" />} nativeButton={false} className="rounded-md px-10 h-14 text-lg font-semibold hover:scale-105 transition-all">
                 Create Account
               </Button>
-              <Button size="lg" variant="outline" render={<Link href="/login" />} className="rounded-md px-10 h-14 text-lg bg-transparent border-primary-foreground text-primary-foreground hover:bg-primary-foreground/10 transition-all">
+              <Button size="lg" variant="outline" render={<Link href="/login" />} nativeButton={false} className="rounded-md px-10 h-14 text-lg bg-transparent border-primary-foreground text-primary-foreground hover:bg-primary-foreground/10 transition-all">
                 Sign In
               </Button>
             </div>
