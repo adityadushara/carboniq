@@ -138,8 +138,8 @@ export function ReportsDashboard() {
               <RadialBarChart 
                 cx="50%" 
                 cy="50%" 
-                innerRadius="30%" 
-                outerRadius="100%" 
+                innerRadius="40%" 
+                outerRadius="80%" 
                 barSize={15} 
                 data={goalData}
                 startAngle={90}
@@ -150,7 +150,7 @@ export function ReportsDashboard() {
                   dataKey="uv"
                   cornerRadius={10}
                 />
-                <Legend iconSize={10} layout="vertical" verticalAlign="middle" align="right" />
+                <Legend iconSize={10} layout="horizontal" verticalAlign="bottom" align="center" wrapperStyle={{ paddingTop: '10px' }} />
                 <RechartsTooltip 
                   cursor={false}
                   contentStyle={{ 
