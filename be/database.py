@@ -5,18 +5,6 @@ from config import settings, logger
 
 SQLALCHEMY_DATABASE_URL = settings.database_url
 
-# Automatic fix for Supabase IPv4 deprecation on old direct connection strings
-if SQLALCHEMY_DATABASE_URL and "db.vmgkgmzeuzxyuziftnbx.supabase.co" in SQLALCHEMY_DATABASE_URL:
-    SQLALCHEMY_DATABASE_URL = SQLALCHEMY_DATABASE_URL.replace(
-        "db.vmgkgmzeuzxyuziftnbx.supabase.co:5432",
-        "aws-0-us-west-1.pooler.supabase.com:6543"
-    )
-    if "postgres:" in SQLALCHEMY_DATABASE_URL and "postgres.vmgkgmzeuzxyuziftnbx:" not in SQLALCHEMY_DATABASE_URL:
-        SQLALCHEMY_DATABASE_URL = SQLALCHEMY_DATABASE_URL.replace(
-            "postgresql://postgres:",
-            "postgresql://postgres.vmgkgmzeuzxyuziftnbx:"
-        )
-
 if SQLALCHEMY_DATABASE_URL and SQLALCHEMY_DATABASE_URL.startswith("postgresql://"):
     SQLALCHEMY_DATABASE_URL = SQLALCHEMY_DATABASE_URL.replace("postgresql://", "postgresql+psycopg2://", 1)
 
