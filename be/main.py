@@ -15,9 +15,17 @@ from routers import activities, goals, community, coach_router, ocr_router
 app = FastAPI(title="CARBONIQ API")
 
 # Configure CORS
+origins = [
+    "http://localhost:3000",
+    "http://localhost:3001",
+    "https://carboniq-one.vercel.app"
+]
+if settings.frontend_url:
+    origins.extend([origin.strip() for origin in settings.frontend_url.split(",")])
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[origin.strip() for origin in settings.frontend_url.split(",")],
+    allow_origins=list(set(origins)),
     allow_credentials=True,
     allow_methods=["GET", "POST", "PATCH", "DELETE", "OPTIONS"],
     allow_headers=["*"],
