@@ -1,8 +1,16 @@
 import Link from "next/link"
+import { redirect } from 'next/navigation'
 import { Button } from "@/components/ui/button"
 import { ArrowRight, Leaf, Shield, Users, Zap, TrendingDown, Target, FileText, CheckCircle2 } from "lucide-react"
 
-export default function LandingPage() {
+export default async function LandingPage(props: { searchParams?: Promise<{ [key: string]: string | string[] | undefined }> }) {
+  if (props.searchParams) {
+    const searchParams = await props.searchParams;
+    if (searchParams?.code) {
+      redirect(`/auth/callback?code=${searchParams.code}`)
+    }
+  }
+
   return (
     <div className="flex flex-col min-h-screen bg-background">
       {/* Navigation */}
