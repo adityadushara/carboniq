@@ -4,15 +4,30 @@ from config import settings, logger
 from slowapi import Limiter, _rate_limit_exceeded_handler
 from slowapi.util import get_remote_address
 from slowapi.errors import RateLimitExceeded
-from database import get_db
+from database import get_db, engine
 from sqlalchemy.orm import Session
 from sqlalchemy import text
+from sqlalchemy.exc import OperationalError
 from auth import get_current_user
+from contextlib import asynccontextmanager
 
 # Import routers
 from routers import activities, goals, community, coach_router, ocr_router
 
-app = FastAPI(title="CARBONIQ API")
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    logger.info("Testing database connection on startup...")
+    try:
+        with engine.connect() as connection:
+            connection.execute(text("SELECT 1"))
+            logger.info("Database connection successful.")
+    except OperationalError as e:
+        logger.error(f"Database connection failed: {e}")
+    except Exception as e:
+        logger.error(f"Database connection failed with unexpected error: {e}")
+    yield
+
+app = FastAPI(title="CARBONIQ API", lifespan=lifespan)
 
 # Configure CORS
 origins = [
