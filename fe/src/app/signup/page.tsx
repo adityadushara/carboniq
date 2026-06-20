@@ -82,8 +82,9 @@ export default function SignUpPage() {
               </div>
             )}
             <div className="space-y-2">
-              <label className="text-sm font-medium">Full Name</label>
+              <label htmlFor="name" className="text-sm font-medium">Full Name</label>
               <Input 
+                id="name"
                 type="text" 
                 placeholder="Jane Doe" 
                 value={name}
@@ -92,8 +93,9 @@ export default function SignUpPage() {
               />
             </div>
             <div className="space-y-2">
-              <label className="text-sm font-medium">Email address</label>
+              <label htmlFor="email" className="text-sm font-medium">Email address</label>
               <Input 
+                id="email"
                 type="email" 
                 placeholder="you@example.com" 
                 value={email}
@@ -102,8 +104,9 @@ export default function SignUpPage() {
               />
             </div>
             <div className="space-y-2">
-              <label className="text-sm font-medium">Password</label>
+              <label htmlFor="password" className="text-sm font-medium">Password</label>
               <Input 
+                id="password"
                 type="password" 
                 placeholder="••••••••" 
                 value={password}

@@ -27,7 +27,8 @@ from models import Base
 # target_metadata = mymodel.Base.metadata
 target_metadata = Base.metadata
 
-config.set_main_option("sqlalchemy.url", SQLALCHEMY_DATABASE_URL)
+escaped_url = SQLALCHEMY_DATABASE_URL.replace('%', '%%')
+config.set_main_option("sqlalchemy.url", escaped_url)
 
 # other values from the config, defined by the needs of env.py,
 # can be acquired:

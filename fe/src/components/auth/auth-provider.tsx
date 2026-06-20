@@ -32,11 +32,13 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
     fetchSession()
 
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
-      setSession(session)
-      setUser(session?.user || null)
-      setLoading(false)
-    })
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(
+      (_event, session) => {
+        setSession(session)
+        setUser(session?.user || null)
+        setLoading(false)
+      }
+    )
 
     return () => subscription.unsubscribe()
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
@@ -50,7 +52,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   }, [user, loading, pathname, router])
 
   return (
-    <AuthContext.Provider value={{ user, session, loading }}>
+    <AuthContext.Provider value={{ session, user, loading }}>
       {loading ? (
         <div className="flex h-screen w-full items-center justify-center bg-background">
           <div className="flex flex-col items-center gap-2">
