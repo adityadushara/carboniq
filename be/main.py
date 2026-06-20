@@ -16,15 +16,17 @@ from routers import activities, goals, community, coach_router, ocr_router
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    logger.info("Testing database connection on startup...")
+    masked_url = engine.url.render_as_string(hide_password=True)
+    logger.info(f"Effective DATABASE_URL: {masked_url}")
+    host = engine.url.host
+    logger.info(f"Database Host: {host}")
     try:
         with engine.connect() as connection:
             connection.execute(text("SELECT 1"))
-            logger.info("Database connection successful.")
-    except OperationalError as e:
-        logger.error(f"Database connection failed: {e}")
+            logger.info("Database Connected: True")
     except Exception as e:
-        logger.error(f"Database connection failed with unexpected error: {e}")
+        logger.error("Database Connected: False")
+        logger.error(f"Error connecting to database: {e}")
     yield
 
 app = FastAPI(title="CARBONIQ API", lifespan=lifespan)

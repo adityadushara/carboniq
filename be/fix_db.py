@@ -1,6 +1,9 @@
 import psycopg2
+from config import settings
 
-db_url = "postgresql://postgres:watercooler%40123@db.vmgkgmzeuzxyuziftnbx.supabase.co:5432/postgres"
+db_url = settings.database_url
+if db_url and db_url.startswith("postgresql+psycopg2://"):
+    db_url = db_url.replace("postgresql+psycopg2://", "postgresql://", 1)
 
 conn = psycopg2.connect(db_url)
 conn.autocommit = True

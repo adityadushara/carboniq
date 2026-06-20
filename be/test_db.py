@@ -1,7 +1,10 @@
 import psycopg2
 import sys
+from config import settings
 
-pooler_url = "postgresql://postgres.vmgkgmzeuzxyuziftnbx:tw0wgGqob7DwmPvI@aws-0-ap-south-1.pooler.supabase.com:6543/postgres"
+pooler_url = settings.database_url
+if pooler_url and pooler_url.startswith("postgresql+psycopg2://"):
+    pooler_url = pooler_url.replace("postgresql+psycopg2://", "postgresql://", 1)
 
 try:
     conn = psycopg2.connect(pooler_url)
