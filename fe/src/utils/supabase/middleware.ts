@@ -31,12 +31,13 @@ export async function updateSession(request: NextRequest) {
     data: { user },
   } = await supabase.auth.getUser()
 
-  // Allow public access to landing page, login, signup, and auth callbacks
+  // Allow public access to landing page, login, signup, auth callbacks, and demo route
   const isPublicRoute = 
     request.nextUrl.pathname === '/' ||
     request.nextUrl.pathname.startsWith('/login') ||
     request.nextUrl.pathname.startsWith('/signup') ||
-    request.nextUrl.pathname.startsWith('/auth');
+    request.nextUrl.pathname.startsWith('/auth') ||
+    request.nextUrl.pathname.startsWith('/demo');
 
   if (!user && !isPublicRoute) {
     const url = request.nextUrl.clone()
