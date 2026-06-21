@@ -39,14 +39,17 @@ export async function updateSession(request: NextRequest) {
     request.nextUrl.pathname.startsWith('/auth') ||
     request.nextUrl.pathname.startsWith('/demo');
 
-  if (!user && !isPublicRoute) {
+  // Check if this is a virtual demo session
+  const isDemoSession = request.cookies.has('carboniq_demo');
+
+  if (!user && !isPublicRoute && !isDemoSession) {
     const url = request.nextUrl.clone()
     url.pathname = '/login'
     return NextResponse.redirect(url)
   }
 
-  // Redirect authenticated users away from public routes to dashboard
-  if (user && isPublicRoute) {
+  // Redirect authenticated or demo users away from public routes to dashboard
+  if ((user || isDemoSession) && isPublicRoute) {
     const url = request.nextUrl.clone()
     url.pathname = '/dashboard'
     return NextResponse.redirect(url)

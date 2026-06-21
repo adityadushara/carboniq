@@ -25,7 +25,7 @@ export default async function LandingPage(props: { searchParams?: Promise<{ [key
           <Link href="#features" className="text-muted-foreground hover:text-foreground transition-colors">Features</Link>
           <Link href="#how-it-works" className="text-muted-foreground hover:text-foreground transition-colors">How it works</Link>
           <Link href="#faq" className="text-muted-foreground hover:text-foreground transition-colors">FAQ</Link>
-          <Link href="/demo" className="text-emerald-500 hover:text-emerald-400 transition-colors font-semibold">View Demo</Link>
+          <a href="/api/demo" className="text-emerald-500 hover:text-emerald-400 transition-colors font-semibold">View Demo</a>
         </nav>
         <div className="flex items-center gap-4">
           <Link href="/login" className="text-sm font-medium hover:text-primary transition-colors">Sign In</Link>
@@ -58,13 +58,13 @@ export default async function LandingPage(props: { searchParams?: Promise<{ [key
               <Button size="lg" variant="outline" render={<Link href="/login" />} nativeButton={false} className="rounded-md px-8 h-14 text-base bg-background/50 hover:bg-secondary/50 transition-all">
                 Sign In
               </Button>
-              <Button size="lg" variant="outline" render={<Link href="/demo" />} nativeButton={false} className="rounded-md px-8 h-14 text-base border-emerald-500/50 hover:bg-emerald-500/10 text-emerald-500 transition-all">
+              <Button size="lg" variant="outline" render={<a href="/api/demo" />} nativeButton={false} className="rounded-md px-8 h-14 text-base border-emerald-500/50 hover:bg-emerald-500/10 text-emerald-500 transition-all">
                 View Demo
               </Button>
             </div>
             
             {/* Dashboard Preview Mockup */}
-            <Link href="/demo" className="block mt-16 relative max-w-5xl mx-auto rounded-xl border border-border/50 shadow-2xl bg-card overflow-hidden hover:scale-[1.01] transition-transform animate-in fade-in slide-in-from-bottom-12 duration-1000 delay-300">
+            <a href="/api/demo" className="block mt-16 relative max-w-5xl mx-auto rounded-xl border border-border/50 shadow-2xl bg-card overflow-hidden hover:scale-[1.01] transition-transform animate-in fade-in slide-in-from-bottom-12 duration-1000 delay-300">
               <div className="border-b border-border/50 bg-muted/50 p-3 flex gap-2">
                 <div className="w-3 h-3 rounded-full bg-red-500/50"></div>
                 <div className="w-3 h-3 rounded-full bg-yellow-500/50"></div>
@@ -101,7 +101,7 @@ export default async function LandingPage(props: { searchParams?: Promise<{ [key
                     <div className="h-4 w-4/6 bg-muted rounded"></div>
                  </div>
               </div>
-            </Link>
+            </a>
           </div>
         </section>
 

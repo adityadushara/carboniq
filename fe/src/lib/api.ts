@@ -28,6 +28,23 @@ export const fetchApi = async <T = any>(endpoint: string, options: RequestInit =
   }
 
   const url = `${API_BASE_URL}${endpoint}`
+  // --- DEMO MODE INTERCEPTION ---
+  if (typeof document !== 'undefined' && document.cookie.includes('carboniq_demo=true')) {
+    // Dynamic import to avoid circular dependencies or loading mock data unnecessarily
+    const mocks = await import('./mock-data')
+    
+    // Simulate network delay
+    await new Promise(resolve => setTimeout(resolve, 500))
+
+    if (endpoint.startsWith('/activities')) return mocks.MOCK_ACTIVITIES as any
+    if (endpoint.startsWith('/goals')) return mocks.MOCK_GOALS as any
+    if (endpoint.startsWith('/community')) return mocks.MOCK_COMMUNITY_POSTS as any
+    
+    // Default fallback for unknown endpoints in demo mode
+    return [] as any
+  }
+  // --- END DEMO MODE ---
+
   const response = await fetch(url, {
     ...options,
     headers,
