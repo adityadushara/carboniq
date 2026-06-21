@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException, UploadFile, File, Request
 from fastapi.concurrency import run_in_threadpool
-from auth import get_current_user
-from ocr import analyze_receipt
+from app.auth import get_current_user
+from app.ocr import analyze_receipt
 
 router = APIRouter(prefix="/api/ocr", tags=["OCR"])
 

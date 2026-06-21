@@ -18,8 +18,8 @@ import sys
 import os
 sys.path.insert(0, os.path.realpath(os.path.join(os.path.dirname(__file__), '..')))
 
-from database import SQLALCHEMY_DATABASE_URL
-from models import Base
+from app.database import SQLALCHEMY_DATABASE_URL
+from app.models import Base
 
 # add your model's MetaData object here
 # for 'autogenerate' support

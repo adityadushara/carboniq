@@ -1,10 +1,10 @@
 from fastapi import APIRouter, Depends, HTTPException, Request
 from sqlalchemy.orm import Session
 import uuid
-import models
-from database import get_db
-from auth import get_current_user
-from schemas import ActivityCreate, ActivityResponse
+from app import models
+from app.database import get_db
+from app.auth import get_current_user
+from app.schemas import ActivityCreate, ActivityResponse
 
 router = APIRouter(prefix="/api/activities", tags=["Activities"])
 

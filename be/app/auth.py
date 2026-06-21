@@ -4,12 +4,12 @@ from fastapi import Depends, HTTPException, status
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from supabase import create_client, Client
 from sqlalchemy.orm import Session
-from database import get_db
-import models
+from app.database import get_db
+from app import models
 
 security = HTTPBearer()
 
-from config import settings
+from app.config import settings
 url: str = settings.supabase_url
 key: str = settings.supabase_key
 supabase: Client = create_client(url, key)

@@ -2,7 +2,7 @@ import google.generativeai as genai
 from pydantic import BaseModel
 from typing import List
 from tenacity import retry, stop_after_attempt, wait_exponential
-from config import settings, logger
+from app.config import settings, logger
 
 api_key = settings.gemini_api_key
 if api_key:

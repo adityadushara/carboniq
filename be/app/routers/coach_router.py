@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends, Request
 from fastapi.concurrency import run_in_threadpool
-from auth import get_current_user
-from coach import ChatRequest, generate_coach_response
+from app.auth import get_current_user
+from app.coach import ChatRequest, generate_coach_response
 
 router = APIRouter(prefix="/api/coach", tags=["Coach"])
 
