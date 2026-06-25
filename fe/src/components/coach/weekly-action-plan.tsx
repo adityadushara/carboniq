@@ -1,6 +1,6 @@
 "use client"
 import { useEffect, useState } from "react"
-import { createClient } from "@/lib/supabase"
+import { fetchApi } from "@/lib/api"
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card"
 import { CheckCircle2, Loader2, Sparkles } from "lucide-react"
 
@@ -10,18 +10,12 @@ export function WeeklyActionPlan() {
 
   useEffect(() => {
     async function fetchPlan() {
-      const supabase = createClient()
-      const { data: { session } } = await supabase.auth.getSession()
-      if (!session) return
-
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'}/api/coach/weekly-plan`, {
-        headers: { Authorization: `Bearer ${session.access_token}` }
-      })
-      if (res.ok) {
-        const data = await res.json()
+      try {
+        const data = await fetchApi<{ plan: string }>('/coach/weekly-plan')
         setPlan(data.plan)
+      } finally {
+        setLoading(false)
       }
-      setLoading(false)
     }
     fetchPlan()
   }, [])

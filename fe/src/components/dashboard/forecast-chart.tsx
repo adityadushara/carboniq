@@ -1,6 +1,6 @@
 "use client"
 import { useEffect, useState } from "react"
-import { createClient } from "@/lib/supabase"
+import { fetchApi } from "@/lib/api"
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card"
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts'
 import { TrendingDown, TrendingUp } from "lucide-react"
@@ -10,15 +10,11 @@ export function ForecastChart() {
 
   useEffect(() => {
     async function fetchForecast() {
-      const supabase = createClient()
-      const { data: { session } } = await supabase.auth.getSession()
-      if (!session) return
-
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'}/api/forecasting`, {
-        headers: { Authorization: `Bearer ${session.access_token}` }
-      })
-      if (res.ok) {
-        setData(await res.json())
+      try {
+        const forecast = await fetchApi<{current_total: number, projected_next_month: number, trend: string}>('/forecasting')
+        setData(forecast)
+      } catch {
+        setData(null)
       }
     }
     fetchForecast()

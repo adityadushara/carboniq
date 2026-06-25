@@ -2,6 +2,34 @@ import { createClient } from './supabase'
 import type { Activity, Goal } from '@/types'
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://127.0.0.1:8000/api'
+const USE_MOCK_FALLBACK = process.env.NEXT_PUBLIC_USE_MOCK_FALLBACK !== 'false'
+
+const getMockResponse = async <T = any>(endpoint: string): Promise<T | null> => {
+  const mocks = await import('./mock-data')
+
+  if (endpoint.startsWith('/activities')) return mocks.MOCK_ACTIVITIES as T
+  if (endpoint.startsWith('/goals')) return mocks.MOCK_GOALS as T
+  if (endpoint.startsWith('/community')) return mocks.MOCK_COMMUNITY_POSTS as T
+  if (endpoint.startsWith('/forecasting')) {
+    const currentTotal = mocks.MOCK_ACTIVITIES.reduce((sum, activity) => sum + activity.emissions_kg, 0)
+    return {
+      current_total: currentTotal,
+      projected_next_month: currentTotal * 0.92,
+      trend: 'down',
+    } as T
+  }
+  if (endpoint.startsWith('/coach/weekly-plan')) {
+    return {
+      plan: [
+        '- Replace two short car trips with cycling or walking this week.',
+        '- Add one plant-based dinner to lower diet emissions.',
+        '- Shift one laundry load to cold water and air dry when possible.',
+      ].join('\n'),
+    } as T
+  }
+
+  return null
+}
 
 /**
  * Generic fetch wrapper for authenticated API calls.
@@ -30,32 +58,38 @@ export const fetchApi = async <T = any>(endpoint: string, options: RequestInit =
   const url = `${API_BASE_URL}${endpoint}`
   // --- DEMO MODE INTERCEPTION ---
   if (typeof document !== 'undefined' && document.cookie.includes('carboniq_demo=true')) {
-    // Dynamic import to avoid circular dependencies or loading mock data unnecessarily
-    const mocks = await import('./mock-data')
-    
     // Simulate network delay
     await new Promise(resolve => setTimeout(resolve, 500))
 
-    if (endpoint.startsWith('/activities')) return mocks.MOCK_ACTIVITIES as any
-    if (endpoint.startsWith('/goals')) return mocks.MOCK_GOALS as any
-    if (endpoint.startsWith('/community')) return mocks.MOCK_COMMUNITY_POSTS as any
-    
-    // Default fallback for unknown endpoints in demo mode
-    return [] as any
+    const mockResponse = await getMockResponse<T>(endpoint)
+    return mockResponse ?? ([] as T)
   }
   // --- END DEMO MODE ---
 
-  const response = await fetch(url, {
-    ...options,
-    headers,
-  })
+  try {
+    const response = await fetch(url, {
+      ...options,
+      headers,
+    })
 
-  if (!response.ok) {
-    const errorData = await response.json().catch(() => ({}))
-    throw new Error(errorData.detail || `API request failed: ${response.statusText}`)
+    if (!response.ok) {
+      const errorData = await response.json().catch(() => ({}))
+      throw new Error(errorData.detail || `API request failed: ${response.statusText || response.status}`)
+    }
+
+    return response.json()
+  } catch (error) {
+    if (options.method && options.method !== 'GET') {
+      throw error
+    }
+
+    if (USE_MOCK_FALLBACK) {
+      const mockResponse = await getMockResponse<T>(endpoint)
+      if (mockResponse !== null) return mockResponse
+    }
+
+    throw error
   }
-
-  return response.json()
 }
 
 /**
